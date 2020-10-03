@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 })
 
 
-// Uduarios
+// Usuarios
 router.get("/get", usersController.GET);
 
 

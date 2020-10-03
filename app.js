@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 /** Cros */
 if (!isProd) {
   app.use(cors());
-
   var allowCrossDomain = function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "example.com");
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
@@ -30,59 +29,30 @@ if (!isProd) {
   };
 }
 
-
-// app.use(function (err, req, res, next) {
-//   console.error(err.stack);
-//   res.status(500).send('Something broke!');
-// });
-
-// Middlewa que verifica si el usuario es un administrador.
-// function isAdmin(req, res, next) {
-//   req.requestTime = Date.now();
-//   console.log('Request URL:', req.originalUrl);
-//   console.log('Request Type:', req.method);
-//   const Iframe = JSON.stringify(req.url)
-//   console.log(`${Iframe}`);
-//   next()
-//   // if (req.body.isAdmin) {
-//   //   next();
-//   // } else {
-//   //   res.status(403).send(`Sorry but you are not an admin and you do not have access to route ${req.url}`);
-//   // }
-// }
-
-
-
+// Archivos de rutas
 const userRoute = require("./api/routes/users")
+
 
 // Rutas
 app.use("/api/v1.0/usuerio", userRoute)
 
 
 
-// Se agrega el middleware en la aplicación.
-// app.use(isAdmin);
+
+
+// ENDPOINT GET PRUEBA
+app.get(
+  "/",
+  (rootHandler = (req, res) => {
+    res.json("MicroServicio de Evaluacion");
+  })
+);
+
 
 // Registro de puerto y servidor.
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
 app.set("host", process.env.NODEJS_IP);
-
-// ENDPOINT GET PRUEBA
-// app.get(
-//   "/",
-//   (rootHandler = (req, res) => {
-//     res.json("MicroServicio de Evaluacion");
-//   })
-// );
-
-
-// ENDPOINTS POST
-// app.post("/ms/template", templateController.template);
-
-
-
-
 
 // Iniciando Servidor.
 app.listen(app.get("port"), app.get("host"), () => {

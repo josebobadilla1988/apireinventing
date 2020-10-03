@@ -1,13 +1,13 @@
 module.exports = {
     apps: [{
-        name: "ms-template-js",
+        name: "api-reinventing-js",
         script: "./app.js",
         instances: 1,
         exec_mode: "fork",
         watch: true,
-        log_file: "~/.pm2/logs/ms-template-js-outerr.log",
-        out_file: "NULL", // ~/.pm2/logs/ms-template-js-out.log
-        error_file: "~/.pm2/logs/ms-template-js-error.log",
+        log_file: "~/.pm2/logs/api-reinventing-js-outerr.log",
+        out_file: "NULL", // ~/.pm2/logs/api-reinventing-js-out.log
+        error_file: "~/.pm2/logs/api-reinventing-js-error.log",
         combine_logs: true,
         merge_logs: true,
         env_production: {
