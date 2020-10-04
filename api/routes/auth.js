@@ -2,12 +2,12 @@ var bcrypt = require('bcrypt');
 const BD = require("../database/pg/postgres");
 
 module.exports = async (app) => {
-    app.post("/api/login", async (req, res) => {
+    app.post("/api/login", async (req, res, next) => {
 
-        var username = req.body.username,
+        var email = req.body.email,
             password = req.body.password;
 
-        const query = `SELECT * FROM public.users where username = '${username}'`;
+        const query = `SELECT * FROM public.users where email = '${email}'`;
         const user = await BD.storePostgresql(query);
         if (!user) {
             res.json({ res: "ko", message: "El usuario no se ha identificado" }).status(404)
@@ -17,7 +17,8 @@ module.exports = async (app) => {
                     req.session.userID = user.id
                     req.session.username = user.username
                     req.session.email = user.email
-                    req.session.logged = user.true
+                    req.session.logged = true
+                    delete user.password
                     res.json({ res: 'ok', message: "Wellcome", user }).status(200)
                 } else {
                     res.json({ res: 'ko', message: "Password Incorrecto", user, result, err }).status(400)

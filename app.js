@@ -30,20 +30,12 @@ dotenv.load({ path: `.env.${process.env.NODE_ENV}` });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/** Cros */
-if (!isProd) {
-  app.use(cors());
-  var allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "example.com");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
-  };
-}
+
+
+app.use(cors());
 
 // Archivos de rutas
 const userRoute = require("./api/routes/users")
-
 
 // Rutas
 app.use("/api/v1.0/usuerio", userRoute)
