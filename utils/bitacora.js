@@ -1,14 +1,12 @@
 const mongoDB = require("../api/database/mdb/mongodb")
 const fechaperse = `${new Date().toISOString().substr(0, 10)}`
 console.log(fechaperse);
-const control = async (query, url, userid) => {
+const control = async (query, url) => {
     console.log(query);
     console.log(url);
-    console.log(userid);
     const data = {
         "query": query,
-        "url": url,
-        "userid": userid,
+        "url": url
     }
     mongoDB.INSERT_ONE(data, `bitacora_${fechaperse}`)
 }
