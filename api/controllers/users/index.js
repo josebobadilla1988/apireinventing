@@ -2,7 +2,7 @@ const BD = require("../../database/pg/postgres");
 const bitacora = require("../../../utils/bitacora")
 
 
-const GET = async (req, res) => {
+const GET = async (req, res, next) => {
     try {
         const query = `select 1`;
         bitacora.control(query, req.url, 1)

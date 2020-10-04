@@ -18,4 +18,4 @@ router.get("/get", usersController.GET);
 
 
 
-module.exports = router
+module.exports = router;
