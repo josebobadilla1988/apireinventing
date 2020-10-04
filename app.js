@@ -39,7 +39,6 @@ app.use("/api/v1.0/usuerio", userRoute)
 
 
 
-
 // ENDPOINT GET PRUEBA
 app.get(
   "/",
