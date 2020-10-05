@@ -1,14 +1,18 @@
 const BD = require("../database/pg/postgres");
 const bitacora = require("../../utils/bitacora")
 
+// ``
+
 module.exports = async (app) => {
+    // para traer todos los usuarios
     app.get("/api/users", async (req, res, next) => {
         try {
             const email = req.body.email;
             const password = req.body.password;
-            const query = `SELECT * FROM public.users`;
+            const query = `SELECT * from fwconacc.tbusuari`;
             bitacora.control(query, req.url)
             const user = await BD.storePostgresql(query);
+            // con esto muestro msj
             res.json({ res: 'ok', message: "Session cerrada correctamente", user }).status(200)
         } catch (error) {
             res.json({ res: 'ko', message: "Error controlado", error }).status(500)
@@ -16,18 +20,53 @@ module.exports = async (app) => {
 
     })
 
-    app.post('/api/register', async (req, res) => {
+    // para agregar un usuario
+    app.post("/api/users", async (req, res, next) => {
+        try {
+            const idUsuer = req.body.id;
+            const noUsuer = req.body.name;
+            const query = `SELECT * from fwconacc.tbusuari where co_usuari = ${idUsuer} and no_usuari = '${noUsuer}'`;
+            bitacora.control(query, req.url)
+            const user = await BD.storePostgresql(query);
+            // con esto muestro msj
+            res.json({ res: 'ok', message: "Session cerrada correctamente", user }).status(200)
+        } catch (error) {
+            res.json({ res: 'ko', message: "Error controlado", error }).status(500)
+        }
 
     })
 
-    app.post("/api/logout", async (req, res) => {
-
-        req.session.userID = null
-        req.session.username = null
-        req.session.email = null
-        req.session.logged = false
-        res.json({ res: 'ok', message: "Session cerrada correctamente" }).status(200)
+    // para actualizar usuarios
+    app.put("/api/users", async (req, res, next) => {
+        try {
+            const idUsuer = req.body.id;
+            const query = `select * from fwconacc.tbusuari(${idUsuer})`;
+            bitacora.control(query, req.url)
+            const user = await BD.storePostgresql(query);
+            // con esto muestro msj
+            res.json({ res: 'ok', message: "Session cerrada correctamente", user }).status(200)
+        } catch (error) {
+            res.json({ res: 'ko', message: "Error controlado", error }).status(500)
+        }
 
     })
+
+    // para borrar
+    app.delete("/api/users", async (req, res, next) => {
+        try {
+            const idUsuer = req.body.id;
+            const noUsuer = req.body.name;
+            const query = `SELECT * from fwconacc.tbusuari where co_usuari = ${idUsuer} and no_usuari = '${noUsuer}'`;
+            bitacora.control(query, req.url)
+            const user = await BD.storePostgresql(query);
+            // con esto muestro msj
+            res.json({ res: 'ok', message: "Session cerrada correctamente", user }).status(200)
+        } catch (error) {
+            res.json({ res: 'ko', message: "Error controlado", error }).status(500)
+        }
+
+    })
+
+
 
 }
